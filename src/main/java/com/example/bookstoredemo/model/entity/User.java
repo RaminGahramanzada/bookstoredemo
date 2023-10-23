@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
 
 
 @Entity
@@ -35,6 +36,14 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     Account account;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    Set<Review> reviews;
+
+    @JsonManagedReference
+    public Set<Review> getReviews() {
+        return reviews;
+    }
 
 
 

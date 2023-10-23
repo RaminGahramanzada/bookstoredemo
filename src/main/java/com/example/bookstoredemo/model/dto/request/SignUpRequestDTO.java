@@ -1,9 +1,11 @@
 package com.example.bookstoredemo.model.dto.request;
 
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Getter
 @Setter
@@ -13,10 +15,19 @@ import org.antlr.v4.runtime.misc.NotNull;
 public class SignUpRequestDTO {
 
 
+    @NotBlank
     String username;
+
+    @NotBlank
     String password;
+
+    @jakarta.validation.constraints.NotNull
     String firstName;
+
+    @NotNull
     String lastName;
+
+    @Email
     String email;
     String contactNumber;
 }
