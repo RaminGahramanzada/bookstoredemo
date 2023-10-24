@@ -1,20 +1,19 @@
 package com.example.bookstoredemo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -33,19 +32,13 @@ public class User {
     @Column(name = "contact_number")
     String contactNumber;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "registration_date",columnDefinition = "TIMESTAMP default now()")
+    LocalDateTime registrationDate = LocalDateTime.now();
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     Account account;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user")
     Set<Review> reviews;
-
-    @JsonManagedReference
-    public Set<Review> getReviews() {
-        return reviews;
-    }
-
-
-
-
 }

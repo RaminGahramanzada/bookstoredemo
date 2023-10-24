@@ -1,25 +1,29 @@
 package com.example.bookstoredemo.service;
 
+
 import com.example.bookstoredemo.model.dto.request.SignUpRequestDTO;
 import com.example.bookstoredemo.model.dto.request.UserRequestDTO;
+import com.example.bookstoredemo.model.dto.response.UserResponseDTO;
 import com.example.bookstoredemo.model.entity.User;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
 public interface UserService {
 
-    void add(SignUpRequestDTO signUpRequestDto);
+    boolean addUser(@Valid SignUpRequestDTO signUpRequestDTO);
 
-    User update(Long id, UserRequestDTO userRequestDto);
+    List<UserResponseDTO> getAllUsers(int page, int size);
 
-    void delete(String username);
+    UserResponseDTO getUserById(Long id);
 
-    User getById(Long id);
+    User getUserByUsername(String username);
 
-    User findUserByUsername(String username);
+    boolean updateUser(Long id, @Valid UserRequestDTO userRequestDTO);
 
-    List<User> getAllUsers(int page, int size);
+    boolean deleteUser(Long id);
 
-    void addReview(Long id, Long reviewId);
+    boolean addRoleToUser(Long id, String roleName);
 
+    boolean deleteRoleFromUser(Long id, String roleName);
 }

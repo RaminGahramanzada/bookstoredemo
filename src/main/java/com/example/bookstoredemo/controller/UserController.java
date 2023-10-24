@@ -1,60 +1,64 @@
 package com.example.bookstoredemo.controller;
 
-
 import com.example.bookstoredemo.model.dto.request.SignUpRequestDTO;
 import com.example.bookstoredemo.model.dto.request.UserRequestDTO;
+import com.example.bookstoredemo.model.dto.response.UserResponseDTO;
 import com.example.bookstoredemo.model.entity.User;
 import com.example.bookstoredemo.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
 @RequiredArgsConstructor
+@RequestMapping(path = "/users")
 public class UserController {
-
     private final UserService userService;
-
     @PostMapping
-    public void add(@RequestBody @Valid SignUpRequestDTO signUpRequestDto) {
-        userService.add(signUpRequestDto);
+    public boolean addUser(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
+        return userService.addUser(signUpRequestDTO);
     }
 
-    @PatchMapping("/{id}/{reviewId}")
-    public void addReview(@PathVariable Long id, @PathVariable Long reviewId) {
-        userService.addReview(id, reviewId);
-    }
-
-    @PutMapping("/{id}")
-    public void update(@PathVariable Long id,
-                       @RequestBody UserRequestDTO userRequestDto) {
-        userService.update(id, userRequestDto);
-    }
-
-    @DeleteMapping
-    public void delete(@RequestParam String username) {
-        userService.delete(username);
-    }
-
-    @GetMapping("/all-users")
-    public List<User> getAllUsers(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "2") int size) {
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserResponseDTO> getAllUsers(@RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "2") int size) {
         return userService.getAllUsers(page, size);
     }
 
-    @GetMapping("/get-by-id/{id}")
-    public User getById(@PathVariable Long id) {
-        return userService.getById(id);
+    @GetMapping("/{id}")
+    public UserResponseDTO getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
-    @GetMapping("/get-by-username")
-    public User getByUsername(@RequestParam String username) {
-        return userService.findUserByUsername(username);
+    @GetMapping("/username")
+    public User getUserByUsername(@RequestParam String username) {
+        return userService.getUserByUsername(username);
     }
 
+    @PostMapping("/{id}")
+    public boolean updateUser(@PathVariable Long id,
+                              @Valid @RequestBody UserRequestDTO userRequestDTO) {
+        return userService.updateUser(id, userRequestDTO);
+    }
 
+    @DeleteMapping("/{id}")
+    public boolean deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
+    }
+
+    @PatchMapping("/{id}/add-role")
+    public boolean addRoleToUser(@PathVariable Long id,
+                                 @RequestParam String roleName) {
+        return userService.addRoleToUser(id, roleName);
+    }
+
+    @PatchMapping("/{id}/delete-role")
+    public boolean deleteRoleFromUser(@PathVariable Long id,
+                                      @RequestParam String roleName) {
+        return userService.deleteRoleFromUser(id, roleName);
+    }
 }

@@ -1,34 +1,32 @@
 package com.example.bookstoredemo.model.dto.request;
 
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Getter
+import jakarta.validation.constraints.*;
+
 @Setter
-@AllArgsConstructor
+@Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SignUpRequestDTO {
 
-
-    @NotBlank
-    String username;
-
-    @NotBlank
-    String password;
-
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     String firstName;
 
-    @NotNull
+    @NotEmpty(message = "last name can not empty!")
     String lastName;
 
     @Email
     String email;
-    String contactNumber;
-}
 
+    @NotBlank
+    String contactNumber;
+    @NotBlank
+    String username;
+
+    @Pattern(regexp = "[0-9]+")
+    String password;
+}

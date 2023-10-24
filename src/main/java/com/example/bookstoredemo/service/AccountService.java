@@ -1,26 +1,16 @@
 package com.example.bookstoredemo.service;
 
-import com.example.bookstoredemo.model.dto.request.AccountRequestDTO;
+
 import com.example.bookstoredemo.model.dto.request.SignUpRequestDTO;
 import com.example.bookstoredemo.model.entity.Account;
 
-import java.util.List;
-
 public interface AccountService {
 
-    Account add(SignUpRequestDTO signUpRequestDto);
+    Account add(SignUpRequestDTO signUpRequestDTO);
 
-    void addRole(String id, String roleName);
+    Account getAccountByUsername(String username);
 
-    void deleteRole(String id, String roleName);
+    boolean updateUsername(Long id, String username);
 
-    Account update(String id, AccountRequestDTO accountRequestDto);
-
-    void delete(Account account);
-
-    Account getByUsername(String username);
-
-    List<Account> getByRoleName(String role);
-
-    List<Account> getAllAccounts();
+    boolean updatePassword(Long id, String password);
 }

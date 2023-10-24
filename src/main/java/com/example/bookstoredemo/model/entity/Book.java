@@ -1,20 +1,19 @@
 package com.example.bookstoredemo.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "books")
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "books")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Book {
 
@@ -22,17 +21,28 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "title")
     String title;
 
-    @Column(length = 500)
+    @Column(name = "synopsis",columnDefinition = "TEXT")
     String synopsis;
 
     @OneToMany(mappedBy = "book")
     Set<Review> reviews;
 
-    @JsonManagedReference
-    public Set<Review> getReviews(){
-        return reviews;
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "books_genres",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    Set<Genre> genres;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "authors_books",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    Set<Author> authors;
 }

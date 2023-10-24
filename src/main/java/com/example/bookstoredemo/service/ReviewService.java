@@ -1,30 +1,24 @@
 package com.example.bookstoredemo.service;
 
+
 import com.example.bookstoredemo.model.dto.request.ReviewRequestDTO;
 import com.example.bookstoredemo.model.dto.response.ReviewResponseDTO;
 import com.example.bookstoredemo.model.entity.Review;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
-import java.util.Set;
 
 public interface ReviewService {
 
-    void add(ReviewRequestDTO reviewRequestDto);
+    List<Review> getAllReviewsByBookId(Long bookId, Sort sort);
 
-    Review update(Long id, ReviewRequestDTO reviewRequestDto);
+    List<Review> getAllReviewsByUserId(Long userId, Sort sort);
 
-    void delete(Long id);
+    boolean addReview(Long userId, Long bookId, ReviewRequestDTO reviewRequestDTO);
 
-    void deleteAll(Set<Review> reviews);
+    boolean deleteReview(Long userId, Long bookId, Long reviewId);
 
-    List<Review> getByUsername(String username);
+    List<ReviewResponseDTO> getAllReviews();
 
-    List<ReviewResponseDTO> getByBookTitle(String title);
-
-    Review getById(Long id);
-
-    List<Review> getAllReviews();
-
-    void calculateLikes(Long id, boolean like);
-
+    ReviewResponseDTO getReviewById(Long id);
 }
