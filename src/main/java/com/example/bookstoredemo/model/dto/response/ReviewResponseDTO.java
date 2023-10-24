@@ -1,17 +1,23 @@
 package com.example.bookstoredemo.model.dto.response;
 
-import lombok.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ReviewResponseDTO {
-    String firstName;
-    String lastName;
+
+    Long id;
     String reviewText;
+    Integer likeCount;
     LocalDateTime reviewDate;
+
 }

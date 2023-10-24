@@ -1,92 +1,56 @@
 package com.example.bookstoredemo.service.impl;
 
+
 import com.example.bookstoredemo.mapper.AccountMapper;
 import com.example.bookstoredemo.model.ERole;
-import com.example.bookstoredemo.model.dto.request.AccountRequestDTO;
 import com.example.bookstoredemo.model.dto.request.SignUpRequestDTO;
 import com.example.bookstoredemo.model.entity.Account;
 import com.example.bookstoredemo.model.entity.Role;
 import com.example.bookstoredemo.repository.AccountRepository;
+import com.example.bookstoredemo.repository.RoleRepository;
 import com.example.bookstoredemo.service.AccountService;
 import com.example.bookstoredemo.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
+
     private final RoleService roleService;
+
     private final AccountMapper accountMapper;
 
+    private final RoleRepository roleRepository;
+
 
     @Override
-    public Account add(SignUpRequestDTO signUpRequestDto) {
-        return null;
-    }
+    public Account add(SignUpRequestDTO signUpRequestDTO) {
+        Role role = roleService.findByName(ERole.ROLE_USER);
 
-    @Override
-    public void addRole(String id, String roleName) {
-        ERole eRole = ERole.USER;
-        if (roleName.equalsIgnoreCase("ADMIN"))
-            eRole = ERole.ADMIN;
-        Role role = roleService.findByRoleName(eRole);
-        if (!accountRepository.existsByRoles(role)){
-            Account account = accountRepository.findById(id).get();
-            account.getRoles().add(role);
-            accountRepository.save(account);
+        if(!accountRepository.existsByUsername(signUpRequestDTO.getUsername())) {
+            Account account = accountMapper.signUpRequestDTOtoAccount(signUpRequestDTO);
+            return accountRepository.save(account);
         }
+        throw new RuntimeException("Account not saved");
     }
 
     @Override
-    public void deleteRole(String id, String roleName) {
-        ERole eRole = ERole.ADMIN;
-        if (roleName.equalsIgnoreCase("USER"))
-            eRole = ERole.USER;
-        Role role = roleService.findByRoleName(eRole);
-        if (accountRepository.existsByRoles(role)){
-            Account account = accountRepository.findById(id).get();
-            account.getRoles().remove(role);
-            accountRepository.save(account);
-        }
-    }
-
-    //@Override
-    public Account update(String id, AccountRequestDTO accountRequestDto) {
-        Account account = accountRepository.findById(id).get();
-        if (accountRequestDto.getUsername() != null && accountRequestDto.getUsername() != account.getUsername())
-            account.setUsername(accountRequestDto.getUsername());
-        if (accountRequestDto.getPassword() != null)
-            account.setPassword(accountRequestDto.getPassword());
-        return accountRepository.save(account);
+    public Account getAccountByUsername(String username){
+        return accountRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("account not found"));
     }
 
     @Override
-    public void delete(Account account) {
-        accountRepository.delete(account);
+    public boolean updateUsername(Long id, String username) {
+        return false;
     }
 
     @Override
-    public Account getByUsername(String username) {
-        return accountRepository.findByUsername(username);
+    public boolean updatePassword(Long id, String password) {
+        return false;
     }
-
-    @Override
-    public List<Account> getByRoleName(String role) {
-        if (role.equalsIgnoreCase("USER"))
-            return accountRepository.findAccountsByRoles(new Role(1L, ERole.USER));
-        else if (role.equalsIgnoreCase("ADMIN"))
-            return accountRepository.findAccountsByRoles(new Role(2L, ERole.ADMIN));
-        else return null;
-    }
-
-    @Override
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
-    }
-
-
 }

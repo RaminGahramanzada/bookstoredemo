@@ -1,17 +1,19 @@
 package com.example.bookstoredemo.model.entity;
 
+
+
 import com.example.bookstoredemo.model.ERole;
-import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
+
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles")
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@Table(name = "roles")
 public class Role {
 
     @Id
@@ -19,6 +21,6 @@ public class Role {
     Long id;
 
     @Column(name = "role_name")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     ERole roleName;
 }

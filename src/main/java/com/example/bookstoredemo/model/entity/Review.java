@@ -1,19 +1,18 @@
 package com.example.bookstoredemo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "reviews")
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "reviews")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Review {
 
@@ -21,30 +20,20 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "review_text")
     String reviewText;
 
-    int numberOfLikes;
+    @Column(name = "like_count",columnDefinition = "INT default 0")
+    Integer likeCount;
 
-
-    @CreationTimestamp
-    @Column(name = "review_date", columnDefinition = "timestamp default now()")
+    @Column(name = "reviewDate",columnDefinition = "timestamp default now()")
     LocalDateTime reviewDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "book_id")
     Book book;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
-
-    @JsonBackReference
-    public Book getBook(){
-        return book;
-    }
-
-    @JsonBackReference
-    public User getUser(){
-        return user;
-    }
 }

@@ -1,5 +1,7 @@
 package com.example.bookstoredemo.model;
 
 public enum ERole {
-    ADMIN,USER
+    ROLE_ADMIN,
+    ROLE_MODERATOR,
+    ROLE_USER
 }

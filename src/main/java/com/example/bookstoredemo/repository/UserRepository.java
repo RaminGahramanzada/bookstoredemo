@@ -1,15 +1,19 @@
 package com.example.bookstoredemo.repository;
 
-import com.example.bookstoredemo.model.entity.Review;
+
 import com.example.bookstoredemo.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
+import java.util.List;
+import java.util.Optional;
+
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User,Long> {
 
-    User findUserByAccount_Username(@Param(value = "username") String username);
-
-    boolean existsByReviews(Review review);
+    @Query(value = "select u from User u where u.account.username = :username")
+    Optional<User> findByUsername(@Param(value = "username") String username);
 }

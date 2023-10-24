@@ -3,16 +3,18 @@ package com.example.bookstoredemo.model.dto.request;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Getter
+import jakarta.validation.constraints.Pattern;
+
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequestDTO {
 
     String firstName;
     String lastName;
-    String email;
+
+    @Pattern(regexp = "\\d+")
     String contactNumber;
-    String username;
 }
