@@ -48,9 +48,11 @@ public class ReviewServiceImpl implements ReviewService {
         List<Review> reviews = reviewRepository.getAllReviews();
 
         reviews.forEach(review -> System.out.println(review.getBook().getTitle()));
-        return reviews.stream()
+        List<ReviewResponseDTO> reviewResponseDTOS = reviews.stream()
                 .map(reviewMapper::reviewToReviewResponseDTO)
                 .collect(Collectors.toList());
+        reviewResponseDTOS.forEach(reviewResponseDTO -> System.out.println(reviewResponseDTO));
+        return reviewResponseDTOS;
     }
 
     @Override

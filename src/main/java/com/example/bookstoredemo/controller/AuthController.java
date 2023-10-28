@@ -1,14 +1,13 @@
 package com.example.bookstoredemo.controller;
 
 
-import com.example.security.JwtService;
-import com.example.security.data.AuthRequest;
-import com.example.security.data.AuthResponse;
+import com.example.bookstoredemo.security.JwtService;
+import com.example.bookstoredemo.security.data.AuthRequest;
+import com.example.bookstoredemo.security.data.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

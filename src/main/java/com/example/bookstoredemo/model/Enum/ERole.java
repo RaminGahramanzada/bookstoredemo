@@ -1,4 +1,4 @@
-package com.example.bookstoredemo.model;
+package com.example.bookstoredemo.model.Enum;
 
 public enum ERole {
     ROLE_ADMIN,

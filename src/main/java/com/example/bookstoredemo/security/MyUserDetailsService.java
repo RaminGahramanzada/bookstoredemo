@@ -1,4 +1,4 @@
-package com.example.security;
+package com.example.bookstoredemo.security;
 
 
 import com.example.bookstoredemo.model.entity.Account;

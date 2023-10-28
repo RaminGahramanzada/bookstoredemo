@@ -1,18 +1,19 @@
 package com.example.bookstoredemo.model.dto.response;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
+import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReviewResponseDTO {
 
     Long id;

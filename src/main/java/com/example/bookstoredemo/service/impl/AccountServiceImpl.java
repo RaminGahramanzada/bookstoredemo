@@ -2,7 +2,7 @@ package com.example.bookstoredemo.service.impl;
 
 
 import com.example.bookstoredemo.mapper.AccountMapper;
-import com.example.bookstoredemo.model.ERole;
+import com.example.bookstoredemo.model.Enum.ERole;
 import com.example.bookstoredemo.model.dto.request.SignUpRequestDTO;
 import com.example.bookstoredemo.model.entity.Account;
 import com.example.bookstoredemo.model.entity.Role;
@@ -12,8 +12,6 @@ import com.example.bookstoredemo.service.AccountService;
 import com.example.bookstoredemo.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
