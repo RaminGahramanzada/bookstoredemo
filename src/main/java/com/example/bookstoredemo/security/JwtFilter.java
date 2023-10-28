@@ -1,4 +1,4 @@
-package com.example.security;
+package com.example.bookstoredemo.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

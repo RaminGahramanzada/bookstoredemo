@@ -1,4 +1,4 @@
-package com.example.security;
+package com.example.bookstoredemo.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,9 +26,9 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth
-                                .antMatchers("/reviews/**").permitAll()
-                                .antMatchers("/login").permitAll()
-                                .antMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/reviews/**").permitAll()
+                                .requestMatchers("/login").permitAll()
+//                                .requestMatchers("/users").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

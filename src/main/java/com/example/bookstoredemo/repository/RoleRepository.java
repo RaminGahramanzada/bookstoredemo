@@ -1,7 +1,7 @@
 package com.example.bookstoredemo.repository;
 
 
-import com.example.bookstoredemo.model.ERole;
+import com.example.bookstoredemo.model.Enum.ERole;
 import com.example.bookstoredemo.model.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

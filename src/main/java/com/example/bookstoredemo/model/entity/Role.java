@@ -2,7 +2,7 @@ package com.example.bookstoredemo.model.entity;
 
 
 
-import com.example.bookstoredemo.model.ERole;
+import com.example.bookstoredemo.model.Enum.ERole;
 import lombok.*;
 
 import jakarta.persistence.*;

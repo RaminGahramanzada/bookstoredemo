@@ -1,4 +1,4 @@
-package com.example.security.data;
+package com.example.bookstoredemo.security.data;
 
 import lombok.Getter;
 
